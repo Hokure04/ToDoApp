@@ -38,6 +38,12 @@ migrate-down:
 	@make migrate-action action=down
 
 
+env-port-forward:
+	@docker compose up -d port-forwarder
+
+env-port-close:
+	@docker compose down port-forwarder
+
 migrate-action:
 	@if [ -z "$(action)" ]; then \
       		echo "Parameter is missing action. Try: make migrate-action action=up"; \
