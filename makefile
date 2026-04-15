@@ -38,6 +38,12 @@ migrate-down:
 	@make migrate-action action=down
 
 
+env-port-forward:
+	@docker compose up -d port-forwarder
+
+env-port-close:
+	@docker compose down port-forwarder
+
 migrate-action:
 	@if [ -z "$(action)" ]; then \
       		echo "Parameter is missing action. Try: make migrate-action action=up"; \
@@ -47,3 +53,6 @@ migrate-action:
 		-path /migrations \
         -database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@todoapp-postgres:5432/${POSTGRES_DB}?sslmode=disable \
         "$(action)"
+
+todoapp-run:
+	@go run cmd/todoapp/main.go
